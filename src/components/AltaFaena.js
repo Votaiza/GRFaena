@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { Link } from "react-router-dom";
 
 import { MyTextInput, MySelect } from './Formik'
 
@@ -158,7 +159,7 @@ export default function AltaFaena() {
 
             <div>    
                 <button type="submit" className="uk-button uk-button-primary">Guardar</button>
-                <button className="uk-button uk-button-danger">Cancelar</button>
+                <Link to="/newfaena" className="uk-button uk-button-danger">Cancelar</Link>
             </div>
   
 
