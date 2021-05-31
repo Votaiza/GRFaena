@@ -33,10 +33,6 @@ export default function Clientes() {
               .required('Required'),
             nombreFantasia: Yup.string()
               .required('Required'),
-            provincia: Yup.string()
-              .required('Required'),
-            localidad: Yup.boolean()
-              .required('Required'),
             encargado: Yup.string()
               .required('Required'),
           })}
