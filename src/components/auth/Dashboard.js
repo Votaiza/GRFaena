@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Sidebar } from "../Sidebar";
 import Clientes from '../Clientes';
-import AltaFaena from "../AltaFaena";
 import ListadoFaena from "../ListadoFaena";
 import ListadoCliente from "../ListadoCliente";
 import Faena from '../Faena';
+import { startLoadingFaenas } from "../../redux/actions/faenaAction";
 
 
 export const Dashboard = () => {
+
   return (
     <>
       <Sidebar />
@@ -18,8 +20,8 @@ export const Dashboard = () => {
         <Router>
           <div>
             <nav>
-              <ul className="uk-subnav uk-subnav-pill">
-                <li>
+              <ul className="uk-subnav uk-subnav-pill" >
+                <li className="">
                   <Link to="/dashboard">Faena</Link>
                 </li>
 
@@ -44,7 +46,7 @@ export const Dashboard = () => {
               </Route>
 
               <Route path="/newcliente">
-                <Faena />
+                <Clientes />
               </Route>
             </Switch>
 

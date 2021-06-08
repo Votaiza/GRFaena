@@ -1,171 +1,108 @@
-import React from 'react'
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-
-import { MyTextInput, MySelect } from './Formik'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { newAdjunto } from '../redux/actions/adjuntoAction';
+// import { useDispatch } from "react-redux";
 
 export default function Adjuntos() {
+
+    const dispatch = useDispatch()
+
+    const [adjunto, setAdjunto] = useState()
+
+    const { id } = useSelector(state => state.faena.active)
+
+    const handleSubmit = ( e ) => {
+        e.preventDefault()
+        const atributo = e.target.value
+        dispatch( newAdjunto( id, adjunto, atributo ) )
+    }
+
+    const handleChange = ( e ) => {
+        setAdjunto( e.target.files[0] )
+    }
+
     return (
         <div>
-            <Formik
-                initialValues={{
-                producto: '',
-                correlativo: '',
-                peso: '',
-                estado: '',
-                idCliente: '',
-                apellido: '',
-                ciudad: '',
-                ruta: '',
-                precio: '',
-                transporte: '',
-                tocino: '',
-                proveedor: '',
-                costo: '',
-                }}
 
-                validationSchema={Yup.object({
-                    idCliente: Yup.string()
-                    .required('Required'),
-                    precio: Yup.string()
-                    .required('Required'),
-                    proveedor: Yup.string()
-                    .required('Required'),
-                    costo: Yup.string()
-                    .required('Required'),
-                })}
 
-                onSubmit={(values, { setSubmitting }) => {
+            <div uk-grid="true">
+                <div className="uk-width-1-3">
+                    <form action="" className="uk-form-stacked">
+                        <label className="uk-form-label" >Cargar Guia Traslado</label>
+                        <div uk-form-custom="target: true">
+                            <input type="file" onChange={handleChange}/>
+                                                        
+                            <input className="uk-input uk-form-width-medium" 
+                                type="text" 
+                                placeholder="Select file"
+                                disabled />
+                        </div>
+                        <button className="uk-button uk-button-default"
+                            value="guia"
+                            onClick={handleSubmit}>Submit</button>
+                    </form>
                     
-                }}
-            >
-
-            <Form className="uk-form-stacked">
-                
-                <div uk-grid="true">
-
-                    <div className="uk-width-1-2">
-                        <MyTextInput
-                            label="Producto"
-                            name="producto"
-                            type="text"
-                            placeholder=""
-                        />
-                    </div>
-        
-                    <div className="uk-width-1-2">
-                        <MyTextInput
-                            label="Correlativo"
-                            name="correlativo"
-                            type="text"
-                            placeholder=""
-                        />
-                    </div>
-
-                    <div className="uk-width-1-2">
-                        <MyTextInput
-                            label="Peso"
-                            name="peso"
-                            type="text"
-                            placeholder=""
-                        />
-                    </div>
-
-                    <div className="uk-width-1-2">    
-                        <MyTextInput
-                            label="Estado"
-                            name="estado"
-                            type="text"
-                            placeholder=""
-                        />
-                    </div>
-        
-                    <div className="uk-width-1-2">
-                        <MySelect label="Cliente" name="cliente">
-                        <option value="">Seleccione un Cliente</option>
-                        </MySelect>
-                    </div>
-
-                    <div className="uk-width-1-2">
-                        <MyTextInput
-                            label="Apellido"
-                            name="apellido"
-                            type="text"
-                            placeholder=""
-                        />
-                    </div>
-                    
-                    <div className="uk-width-1-2">
-                        <MySelect label="Ciudad" name="ciudad">
-                        <option value="">Seleccione una Ciudad</option>
-                        </MySelect>
-                    </div>
-
-                    <div className="uk-width-1-2">
-                        <MyTextInput
-                            label="Ruta"
-                            name="ruta"
-                            type="text"
-                            placeholder=""
-                        />
-                    </div>
-
-                    <div className="uk-width-1-2">
-                        <MyTextInput
-                            label="Precio"
-                            name="precio"
-                            type="text"
-                            placeholder=""
-                        />
-                    </div>
-
-                    <div className="uk-width-1-2">
-                        <MyTextInput
-                            label="Transporte"
-                            name="transporte"
-                            type="text"
-                            placeholder=""
-                        />
-                    </div>
-
-                    <div className="uk-width-1-2">
-                        <MyTextInput
-                        label="Tocino"
-                        name="tocino"
-                        type="text"
-                        placeholder=""
-                        />
-                    </div>
-
-                    <div className="uk-width-1-2">
-                        <MyTextInput
-                            label="Proveedor"
-                            name="proveedor"
-                            type="text"
-                            placeholder=""
-                        />
-                    </div>
-
-                    <div className="uk-width-1-2">
-                        <MyTextInput
-                            label="Costo"
-                            name="costo"
-                            type="text"
-                            placeholder=""
-                        />
-                    </div>
                 </div>
 
-                <div>    
-                    <button type="submit" className="uk-button uk-button-primary">Guardar</button>
-                    <Link to="/newfaena" className="uk-button uk-button-danger">Cancelar</Link>
+                <div className="uk-width-1-3">
+                    <form action="" className="uk-form-stacked">
+                        <label className="uk-form-label" htmlFor="Vep">Cargar Comprobante VEP</label>
+                        <div uk-form-custom="target: true">
+                            <input type="file" onChange={handleChange}/>
+                                                       
+                            <input className="uk-input uk-form-width-medium" 
+                                type="text" 
+                                placeholder="Select file"
+                                disabled />
+                        </div>
+                        <button className="uk-button uk-button-default"
+                            value="vep"
+                            onClick={handleSubmit} >Submit</button>
+                    </form>
+                    
+                </div>
+
+                
+
+                <div className="uk-width-1-3">
+                    <form action="" className="uk-form-stacked">
+                        <label className="uk-form-label" htmlFor="romaneoOficial">Cargar Romaneo Oficial</label>
+                        <div uk-form-custom="target: true">
+                            <input type="file" />
+                            <input className="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled />
+                        </div>
+                        <button className="uk-button uk-button-default"
+                            value="oficial"
+                            onClick={handleSubmit} >Submit</button>
+                    </form>                        
+                </div>
+
+                <div className="uk-width-1-3">
+                    <form action="" className="uk-form-stacked">
+                        <label className="uk-form-label" htmlFor="romaneoInterno">Cargar Romaneo Interno</label>
+                        <div uk-form-custom="target: true">
+                            <input type="file" />
+                            <input className="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled />
+                        </div>
+                        <button className="uk-button uk-button-default"
+                            value="interno"
+                            onClick={handleSubmit} >Submit</button>
+                    </form>
                 </div>
     
-
-            </Form>
-            </Formik>
+                <div className="uk-width-1-3">
+                    <form action="" className="uk-form-stacked">
+                        <label className="uk-form-label" htmlFor="liquidacion">Cargar Liquidación</label>
+                        <div uk-form-custom="target: true">
+                            <input type="file" />
+                            <input className="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled />
+                        </div>
+                        <button className="uk-button uk-button-default"
+                            value="liquidacion"
+                            onClick={handleSubmit} >Submit</button>
+                    </form>
+                </div>
+            </div>
             
         </div>
     )

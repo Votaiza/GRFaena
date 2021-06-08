@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import Adjuntos from './Adjuntos';
 import Planilla from './Planilla';
 import General from './General';
 import AltaFaena from './AltaFaena';
+import { startLoadingClientes } from '../redux/actions/clienteActions'
+
 
 export default function Faena() {
+
+    const dispatch = useDispatch();
+    
+    const idFaena = useSelector(state => state.faena.active.id)
+
+    useEffect(() => {
+        dispatch( startLoadingClientes() )
+    }, [dispatch])
+
     return (
         <>
-            <div>
-                <h3>Codigo de Faena Unica:</h3>
-                <p>EjemploDeCodigo</p>
+            <div className="uk-margin">
+                <h2 className="uk-text-primary">Codigo de Faena Unica:</h2>
+                <span className="uk-text-success">{idFaena}</span>           
             </div>
             
             <div>

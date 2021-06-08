@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 
+import { startLoadingClientes } from '../redux/actions/clienteActions';
+import { startLoadingCiudades } from '../redux/actions/ciudadAction';
+import { startLoadingProvincias } from '../redux/actions/provinciasAction';
+
 export default function ListadoCliente() {
+
+    const dispatch = useDispatch();
+
+    const { clientes } = useSelector(state => state.clientes)
+
+    useEffect(() => {
+
+        dispatch( startLoadingClientes() );
+        dispatch( startLoadingCiudades() );
+        dispatch( startLoadingProvincias() )
+
+    }, [dispatch])
+
     return (
         <div>
             <div>
@@ -17,8 +35,6 @@ export default function ListadoCliente() {
                     <thead>
                         <tr>
                             <th className="uk-table-shrink"></th>
-                            <th className="uk-table-shrink">#</th>
-                            <th className="uk-table-shrink">Cod. Interno</th>
                             <th className="uk-table-shrink">Cod FDZ</th>
                             <th className="uk-table-shrink">Cod. FCM</th>
                             <th className="uk-table-shrink">Nombre</th>
@@ -32,23 +48,28 @@ export default function ListadoCliente() {
                             <th className="uk-table-shrink">Email</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        <tr>
-                            <td><input className="uk-checkbox" type="checkbox" /></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        {
+                            (clientes.length > 0) &&
+                                clientes.map( cliente => (
+                                    <tr key={ cliente.id }>
+                                        <td><input className="uk-checkbox" type="checkbox" /></td>
+                                        <td>{ cliente.codFDZ }</td>
+                                        <td>{ cliente.codFCM }</td>
+                                        <td>{ cliente.nombreCompleto }</td>
+                                        <td>{ cliente.nombreFantasia }</td>
+                                        <td>{ cliente.provincia }</td>
+                                        <td>{ cliente.localidad }</td>
+                                        <td>{ cliente.telefono }</td>
+                                        <td>{ cliente.direccion }</td>
+                                        <td>{ cliente.altura }</td>
+                                        <td>{ cliente.encargado }</td>
+                                        <td>{ cliente.email }</td>
+                                    </tr>
+                                ))
+                        }
+                        
                     </tbody>
                 </table>
             </div>

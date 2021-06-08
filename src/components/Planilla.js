@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 
+import { startLoadingLineas } from '../redux/actions/lineasAction'
+
 export default function Planilla() {
+
+    const dispatch = useDispatch()
+
+    const { id, lineas } = useSelector(state => state.faena.active)
+
+    useEffect(() => {
+        
+        dispatch( startLoadingLineas( id ) )
+
+    }, [dispatch])
+
     return (
         <>
             <div>
-                <Link to="/newlinea" className="uk-button uk-button-primary">NUEVA LINEA</Link>
+                <Link to="/newlinea" className="uk-button uk-button-primary uk-button-small">NUEVA LINEA</Link>
             </div>
 
             <div className="uk-overflow-auto">
@@ -13,7 +27,6 @@ export default function Planilla() {
                     <thead>
                         <tr>
                             <th className="uk-table-shrink"></th>
-                            <th className="uk-table-shrink">#</th>
                             <th className="uk-table-shrink">Producto</th>
                             <th className="uk-table-shrink">Correlativo</th>
                             <th className="uk-table-shrink">Peso</th>
@@ -30,23 +43,31 @@ export default function Planilla() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><input className="uk-checkbox" type="checkbox" /></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+
+                        {
+                            (lineas) && (
+                                lineas.map( linea => (
+
+                                    <tr key={ linea.id }>
+                                        <td><input className="uk-checkbox" type="checkbox" /></td>
+                                        <td>{ linea.producto }</td>
+                                        <td>{ linea.correlativo }</td>
+                                        <td>{ linea.peso }</td>
+                                        <td>{ linea.estado }</td>
+                                        <td>{ linea.idCliente }</td>
+                                        <td>{ linea.apellido }</td>
+                                        <td>{ linea.ciudad }</td>
+                                        <td>{ linea.ruta }</td>
+                                        <td>{ linea.precio }</td>
+                                        <td>{ linea.transporte }</td>
+                                        <td>{ linea.tocino }</td>
+                                        <td>{ linea.proveedor }</td>
+                                        <td>{ linea.costo }</td>
+                                    </tr>
+                                ))
+                            )
+                        }
+
                     </tbody>
                 </table>
             </div>

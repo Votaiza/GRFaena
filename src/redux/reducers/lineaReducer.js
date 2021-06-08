@@ -1,22 +1,22 @@
 import { types } from '../types/types'
 
 const initialState = {
-    clientes: [],
+    lineas: [],
     active: null
 }
 
-export const clientesReducer = ( state = initialState, action ) => {
+export const lineaReducer = ( state = initialState, action ) => {
     switch (action.type) {
-        case types.clientesAddNew:
+        case types.lineaAddNew:
             return {
                 ...state,
-                clientes: [ action.payload, ...state.clientes ]
+                lineas: [ action.payload, ...state.lineas ]
             }
 
-        case types.clientesLoad:
+        case types.lineasLoad:
             return {
                 ...state,
-                clientes: [ ...action.payload ]
+                lineas: [ ...action.payload ]
             }
 
         default:

@@ -9,10 +9,9 @@ import { firebase } from '../firebase/config';
 import { login } from '../redux/actions/authActions'
 import { Home } from "../components/Home";
 import { Dashboard } from "../components/auth/Dashboard";
-import Faena from "../components/Faena";
 
 export const AppRouter = () => {
-  const [ checking, setChecking ] = useState(true);
+  // const [ checking, setChecking ] = useState(true);
   const [isLoggedIn, SetIsLoggedIn] = useState(false);
 
   const location = useLocation();
@@ -29,10 +28,10 @@ export const AppRouter = () => {
           SetIsLoggedIn( false );
       }
 
-      setChecking(false);
+      // setChecking(false);
 
   });
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

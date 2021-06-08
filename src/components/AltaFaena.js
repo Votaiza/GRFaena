@@ -1,11 +1,21 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Link } from "react-router-dom";
 
 import { MyTextInput, MySelect } from './Formik'
+import { newLinea } from '../redux/actions/lineasAction';
+
 
 export default function AltaFaena() {
+
+    const dispatch = useDispatch();
+    
+    const { id } = useSelector(state => state.faena.active)
+    const { clientes } = useSelector(state => state.clientes)
+    const { ciudades } = useSelector(state => state.localidades)
+
     return (
         <>
         <Formik
@@ -26,18 +36,18 @@ export default function AltaFaena() {
           }}
 
           validationSchema={Yup.object({
-            idCliente: Yup.string()
+            producto: Yup.string()
               .required('Required'),
-            precio: Yup.string()
+            correlativo: Yup.string()
               .required('Required'),
-            proveedor: Yup.string()
+            peso: Yup.string()
               .required('Required'),
-            costo: Yup.string()
+            estado: Yup.string()
               .required('Required'),
           })}
 
           onSubmit={(values, { setSubmitting }) => {
-            
+            dispatch( newLinea( id, values ) );
           }}
         >
 
@@ -83,7 +93,12 @@ export default function AltaFaena() {
     
                 <div className="uk-width-1-2">
                     <MySelect label="Cliente" name="cliente">
-                    <option value="">Seleccione un Cliente</option>
+                        <option value="">Seleccione un Cliente</option>
+                        {
+                            clientes.map( cliente => (
+                                <option value={cliente.id}>{ cliente.nombreCompleto }</option>
+                            ))
+                        }
                     </MySelect>
                 </div>
 
@@ -98,7 +113,12 @@ export default function AltaFaena() {
                 
                 <div className="uk-width-1-2">
                     <MySelect label="Ciudad" name="ciudad">
-                    <option value="">Seleccione una Ciudad</option>
+                        <option value="">Seleccione una Ciudad</option>
+                        {
+                            ciudades.map( ciudad => (
+                                <option value={ciudad.id}>{ ciudad.nombre }</option>
+                            ))
+                        }
                     </MySelect>
                 </div>
 
@@ -157,9 +177,9 @@ export default function AltaFaena() {
                 </div>
             </div>
 
-            <div>    
-                <button type="submit" className="uk-button uk-button-primary">Guardar</button>
-                <Link to="/newfaena" className="uk-button uk-button-danger">Cancelar</Link>
+            <div className="uk-margin">    
+                <button type="submit" className="uk-button uk-button-primary uk-button-small" >Guardar</button>
+                <Link to="/newfaena" className="uk-button uk-button-danger uk-button-small">Cancelar</Link>
             </div>
   
 

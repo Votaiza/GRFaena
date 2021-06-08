@@ -1,14 +1,19 @@
 import React from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 import { MyTextInput, MySelect } from './Formik'
 import { newCliente } from '../redux/actions/clienteActions';
 
+
 export default function Clientes() {
 
   const dispatch = useDispatch();
+
+  const { provincias, ciudades } = useSelector(state => state.localidades)
+  
 
     return (
         <>
@@ -84,13 +89,23 @@ export default function Clientes() {
     
                 <div className="uk-width-1-2">
                     <MySelect label="Provincia" name="provincia">
-                    <option value="">Seleccione una Provincia</option>
+                      <option value="">Seleccione una Provincia</option>
+                      {
+                        provincias.map( provincia => (
+                          <option value={provincia.nombre} key={provincia.id}>{ provincia.nombre }</option>
+                        ))
+                      }                      
                     </MySelect>
                 </div>
                 
                 <div className="uk-width-1-2">
                     <MySelect label="Localidad" name="localidad">
-                    <option value="">Seleccione una Localidad</option>
+                      <option value="">Seleccione una Localidad</option>
+                      {
+                        ciudades.map( ciudad => (
+                          <option value={ciudad.nombre} key={ciudad.id}>{ ciudad.nombre }</option>
+                        ))
+                      }
                     </MySelect>
                 </div>
 
@@ -134,7 +149,7 @@ export default function Clientes() {
 
             <div className="uk-margin">
               <button type="submit" className="uk-button uk-button-primary uk-button-small">Guardar</button>
-              <button className="uk-button uk-button-danger uk-button-small">Cancelar</button>
+              <Link to="/ListadoCliente" className="uk-button uk-button-danger uk-button-small">Cancelar</Link>
             </div>
 
           </Form>
