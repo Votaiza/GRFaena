@@ -16,3 +16,17 @@ export const finishLoading = () => ({
     type: types.uiFinishLoading
 })
 
+export const setSaveCliente = ( value ) => ({
+    type: types.uiSaveCliente,
+    payload: value,
+})
+
+export const setSaveFaena = ( value ) => ({
+    type: types.uiSaveFaena,
+    payload: value,
+})
+
+export const setMenu = ( value ) => ({
+    type: types.uiSetMenu,
+    payload: value,
+})

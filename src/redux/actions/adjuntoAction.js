@@ -36,6 +36,12 @@ export const newAdjunto = ( idFaena, file, atributo ) => {
                 dispatch( addNewInterno( url ) )
 
                 break;
+
+            case 'liquidacion':
+                await db.doc(`/faenas/${idFaena}`).update({liquidacion: url})
+                dispatch( addNewLiquidacion( url ) )
+
+                break;
         
             default:
                 break;
@@ -81,6 +87,16 @@ export const addNewInterno = ( url ) => {
         type: types.adjuntoAddNew,
         payload: {
             interno : url
+        }
+    }
+}
+
+export const addNewLiquidacion = ( url ) => {
+
+    return {
+        type: types.adjuntoAddNew,
+        payload: {
+            liquidacion : url
         }
     }
 }

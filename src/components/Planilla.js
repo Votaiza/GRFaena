@@ -9,12 +9,16 @@ export default function Planilla() {
     const dispatch = useDispatch()
 
     const { id, lineas } = useSelector(state => state.faena.active)
+    const { ciudades } = useSelector(state => state.localidades)
+    const { clientes } = useSelector(state => state.clientes)
+
+    console.log(ciudades)
 
     useEffect(() => {
         
         dispatch( startLoadingLineas( id ) )
 
-    }, [dispatch])
+    }, [dispatch, id])
 
     return (
         <>
@@ -54,9 +58,17 @@ export default function Planilla() {
                                         <td>{ linea.correlativo }</td>
                                         <td>{ linea.peso }</td>
                                         <td>{ linea.estado }</td>
-                                        <td>{ linea.idCliente }</td>
+                                        <td>
+                                            {
+                                                clientes.find( cliente => (cliente.id === linea.idCliente) )?.nombreCompleto
+                                            }
+                                        </td>
                                         <td>{ linea.apellido }</td>
-                                        <td>{ linea.ciudad }</td>
+                                        <td>
+                                            { 
+                                                ciudades.find( ciudad => ( ciudad.id === linea.ciudad))?.nombre
+                                            }
+                                        </td>
                                         <td>{ linea.ruta }</td>
                                         <td>{ linea.precio }</td>
                                         <td>{ linea.transporte }</td>

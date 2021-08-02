@@ -7,7 +7,9 @@ export const newFaena = (  ) => {
         const faena = {};
         const doc = await db.collection('faenas').add(faena);
 
-        dispatch( activeFaena( doc.id ) )
+        faena.id = doc.id;
+
+        dispatch( setActiveFaena( faena ) )
 
     }
 
@@ -21,9 +23,24 @@ export const addNewFaena = ( id ) => {
     }
 }
 
-export const activeFaena = ( id ) => ({
+export const activeFaena = ( id ) => {
+
+    return async ( dispatch ) => {
+
+        const faenaSnap = await db.collection('faenas').doc(id).get();
+        const faena = {
+            id: faenaSnap.id,
+            ...faenaSnap.data()
+        }
+
+        dispatch( setActiveFaena(faena) )
+        
+    }    
+}
+
+export const setActiveFaena = ( faena ) => ({
     type: types.faenaActive,
-    payload: id,
+    payload: faena,
 })
 
 export const loadFaenas = async () => {
@@ -57,3 +74,26 @@ export const setFaenas = ( faenas ) => ({
     type: types.faenaLoad,
     payload: faenas,
 });
+
+export const startDeleteFaena = ( id ) => {
+
+    return async ( dispatch ) =>{
+
+        await db.collection(`faenas`).doc( id ).delete();
+
+        dispatch( deleteFaena( id ) )
+        dispatch( startLoadingFaenas() )
+
+    }    
+}
+
+export const deleteFaena = ( id ) => ({
+    type: types.faenaDelete,
+    payload: `Faena ${id} eliminado correctamente`,
+
+})
+
+export const cleanActiveFaena = () => ({
+    type: types.faenaCleanActive,
+    payload: {},
+})

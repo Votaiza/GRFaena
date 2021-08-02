@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 
 import { MyTextInput } from './Formik'
 import { newGeneral } from '../redux/actions/generalAction';

@@ -3,6 +3,8 @@ import { types } from '../types/types'
 const initialState = {
     faenas: [],
     active: {},
+    msg: '',
+    save: true,
 }
 
 export const faenaReducer = ( state = initialState, action ) => {
@@ -32,7 +34,7 @@ export const faenaReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 active: {
-                    id: action.payload
+                    ...action.payload
                 }
             }
 
@@ -53,6 +55,18 @@ export const faenaReducer = ( state = initialState, action ) => {
                     ...state.active,
                     ...action.payload,
                 }
+            }
+
+        case types.faenaDelete:
+            return {
+                ...state,
+                msg: action.payload,
+            }
+
+        case types.faenaCleanActive:
+            return {
+                ...state,
+                active: action.payload
             }
 
         default:

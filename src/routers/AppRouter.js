@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Redirect, useLocation } from "react-router-dom";
+import { Switch, Redirect, useLocation, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 import { PrivateRoute } from "./PrivateRoute";
@@ -9,6 +9,10 @@ import { firebase } from '../firebase/config';
 import { login } from '../redux/actions/authActions'
 import { Home } from "../components/Home";
 import { Dashboard } from "../components/auth/Dashboard";
+import ListadoCliente from "../components/ListadoCliente";
+import Stock from "../components/Stock";
+import Faena from "../components/Faena";
+import Clientes from "../components/Clientes";
 
 export const AppRouter = () => {
   // const [ checking, setChecking ] = useState(true);
@@ -49,7 +53,6 @@ export const AppRouter = () => {
           component={Dashboard}
           isAuthenticated={isLoggedIn}
         />
-
 
         <Redirect to="/" />
       </Switch>

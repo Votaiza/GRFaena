@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { newAdjunto } from '../redux/actions/adjuntoAction';
-// import { useDispatch } from "react-redux";
 
 export default function Adjuntos() {
 
@@ -68,7 +67,7 @@ export default function Adjuntos() {
                     <form action="" className="uk-form-stacked">
                         <label className="uk-form-label" htmlFor="romaneoOficial">Cargar Romaneo Oficial</label>
                         <div uk-form-custom="target: true">
-                            <input type="file" />
+                            <input type="file" onChange={handleChange}/>
                             <input className="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled />
                         </div>
                         <button className="uk-button uk-button-default"
@@ -81,7 +80,7 @@ export default function Adjuntos() {
                     <form action="" className="uk-form-stacked">
                         <label className="uk-form-label" htmlFor="romaneoInterno">Cargar Romaneo Interno</label>
                         <div uk-form-custom="target: true">
-                            <input type="file" />
+                            <input type="file" onChange={handleChange}/>
                             <input className="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled />
                         </div>
                         <button className="uk-button uk-button-default"
@@ -94,7 +93,7 @@ export default function Adjuntos() {
                     <form action="" className="uk-form-stacked">
                         <label className="uk-form-label" htmlFor="liquidacion">Cargar Liquidación</label>
                         <div uk-form-custom="target: true">
-                            <input type="file" />
+                            <input type="file" onChange={handleChange}/>
                             <input className="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled />
                         </div>
                         <button className="uk-button uk-button-default"

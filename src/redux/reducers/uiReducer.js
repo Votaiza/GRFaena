@@ -2,7 +2,10 @@ import { types } from '../types/types';
 
 const initialState = {
     loading: false,
-    msgError: null
+    menu: true,
+    msgError: null,
+    saveCliente: true,
+    saveFaena: true,
 }
 
 
@@ -31,6 +34,24 @@ export const uiReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 loading: false
+            }
+
+        case types.uiSaveCliente:
+            return {
+                ...state,
+                saveCliente: action.payload,
+            }
+
+        case types.uiSaveFaena:
+            return {
+                ...state,
+                saveFaena: action.payload,
+            }
+
+        case types.uiSetMenu:
+            return {
+                ...state,
+                menu: action.payload
             }
 
         default:

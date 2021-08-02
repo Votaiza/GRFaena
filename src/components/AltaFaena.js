@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import { MyTextInput, MySelect } from './Formik'
 import { newLinea } from '../redux/actions/lineasAction';
@@ -11,6 +11,8 @@ import { newLinea } from '../redux/actions/lineasAction';
 export default function AltaFaena() {
 
     const dispatch = useDispatch();
+
+    const [save, setSave] = useState(false)
     
     const { id } = useSelector(state => state.faena.active)
     const { clientes } = useSelector(state => state.clientes)
@@ -18,6 +20,11 @@ export default function AltaFaena() {
 
     return (
         <>
+        {
+            save &&
+            <Redirect to="/newfaena"></Redirect>
+        }
+
         <Formik
           initialValues={{
             producto: '',
@@ -48,6 +55,7 @@ export default function AltaFaena() {
 
           onSubmit={(values, { setSubmitting }) => {
             dispatch( newLinea( id, values ) );
+            setSave( true );
           }}
         >
 
@@ -56,12 +64,13 @@ export default function AltaFaena() {
             <div uk-grid="true">
 
                 <div className="uk-width-1-2">
-                    <MyTextInput
-                        label="Producto"
-                        name="producto"
-                        type="text"
-                        placeholder=""
-                    />
+                    <MySelect label="Producto" name="producto">
+                        <option value="">Seleccione un Producto</option>
+                        <option value="Capon de Descarte">Capon de Descarte</option>
+                        <option value="Capon">Capon</option>
+                        <option value="Chancha">Chancha</option>
+                        <option value="Padrillo">Padrillo</option>
+                    </MySelect>
                 </div>
     
                 <div className="uk-width-1-2">
@@ -92,7 +101,7 @@ export default function AltaFaena() {
                 </div>
     
                 <div className="uk-width-1-2">
-                    <MySelect label="Cliente" name="cliente">
+                    <MySelect label="Cliente" name="idCliente">
                         <option value="">Seleccione un Cliente</option>
                         {
                             clientes.map( cliente => (

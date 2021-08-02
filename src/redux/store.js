@@ -6,6 +6,8 @@ import { uiReducer } from '../redux/reducers/uiReducer';
 import { clientesReducer } from "./reducers/clienteReducer";
 import { faenaReducer } from "./reducers/faenaReducer";
 import { localidadesReducer } from "./reducers/localidadReducer";
+import { stockReducer } from "./reducers/stockReducer";
+import { frigorificoReducer } from "./reducers/frigorificoReducer";
 
 const composeEnhancers =
   (typeof window !== "undefined" &&
@@ -18,6 +20,8 @@ const reducers = combineReducers({
   clientes: clientesReducer,
   faena: faenaReducer,
   localidades: localidadesReducer,
+  stock: stockReducer,
+  frigorifico: frigorificoReducer,
 });
 
 export const store = createStore(
