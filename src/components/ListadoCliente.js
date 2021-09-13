@@ -2,12 +2,26 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from "react-router-dom";
 
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+
 import { activeCliente, startDeleteCliente, startLoadingClientes } from '../redux/actions/clienteActions';
 import { setMenu, setSaveCliente } from '../redux/actions/ui';
 import Swal from 'sweetalert2';
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        marginTop: theme.spacing(2),
+        flexGrow: 1,
+    },
+}));
+
 export default function ListadoCliente() {
 
+    const classes = useStyles();
     const dispatch = useDispatch();
 
     const [edit, setEdit] = useState(false)
@@ -19,7 +33,7 @@ export default function ListadoCliente() {
 
         dispatch( startLoadingClientes() );        
 
-    }, [dispatch])
+    }, [dispatch,])
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -28,6 +42,8 @@ export default function ListadoCliente() {
         },
         buttonsStyling: false
     })
+
+    const returnMenu = () => (<Redirect to="/dashboard"></Redirect>)
 
     const handleVolver = ( e ) => {
         dispatch( setMenu( true ) )
@@ -75,29 +91,45 @@ export default function ListadoCliente() {
 
     return (
         
-        <div>
+        <Container>
 
             {
                 !saveCliente &&
                 <Redirect to="/newcliente"></Redirect>
             }
 
-            <div>
-                <div>
-                    <Link to="/dashboard" 
-                        className="uk-button uk-button-primary uk-button-small"
-                        onClick={ handleVolver }
-                    >VOLVER</Link>
-                </div>
-                <div>
+            <Grid 
+                container
+                justifyContent="space-between"
+                alignItems="center"
+                className={classes.root}
+            >
+                <Grid item >
                     <h3>Listado de Clientes</h3>
                     <Link to="/newcliente" 
                         className="uk-button uk-button-primary uk-button-small"
                         onClick={ handleNewCliente }
                     >NUEVO CLIENTE</Link>
-                </div>
-                <p>Gestione su cartera de clientes para luego poder ejecutar distintas acciones sobre los mismos.</p>
-            </div>
+                </Grid>
+
+                <Grid item >
+                    {/* <Link to="/dashboard" 
+                        className="uk-button uk-button-primary uk-button-small"
+                        onClick={ handleVolver }
+                    >VOLVER</Link> */}
+                    <Link to="/dashboard" style={{textDecoration: 'none'}}>
+                        <Button 
+                            variant="outlined" 
+                            color="secondary" 
+                            startIcon={<FirstPageIcon />}
+                            onClick={ handleVolver }
+                        >
+                            VOLVER
+                        </Button>
+                    </Link>
+                </Grid>
+
+            </Grid>
 
             <div className="uk-overflow-auto">
                 <table className="uk-table uk-table-hover uk-table-middle uk-table-divider">
@@ -163,6 +195,6 @@ export default function ListadoCliente() {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </Container>
     )
 }
