@@ -21,6 +21,11 @@ export const setSaveCliente = ( value ) => ({
     payload: value,
 })
 
+export const setSaveProveedor = ( value ) => ({
+    type: types.uiSaveProveedor,
+    payload: value,
+})
+
 export const setSaveFaena = ( value ) => ({
     type: types.uiSaveFaena,
     payload: value,

@@ -11,6 +11,7 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import { activeCliente, startDeleteCliente, startLoadingClientes } from '../redux/actions/clienteActions';
 import { setMenu, setSaveCliente } from '../redux/actions/ui';
 import Swal from 'sweetalert2';
+import { Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -105,11 +106,16 @@ export default function ListadoCliente() {
                 className={classes.root}
             >
                 <Grid item >
-                    <h3>Listado de Clientes</h3>
-                    <Link to="/newcliente" 
-                        className="uk-button uk-button-primary uk-button-small"
-                        onClick={ handleNewCliente }
-                    >NUEVO CLIENTE</Link>
+                    <Typography variant="h4" component="h4" mb={2}>Listado de Clientes</Typography>
+                    <Link to="/newcliente" style={{textDecoration: 'none'}}>
+                        <Button 
+                            variant="contained"
+                            color="primary"
+                            onClick={ handleNewCliente }
+                        >
+                            NUEVO CLIENTE
+                        </Button>
+                    </Link>
                 </Grid>
 
                 <Grid item >
@@ -137,7 +143,7 @@ export default function ListadoCliente() {
                         <tr>
                             <th className="uk-table-shrink"></th>
                             <th className="uk-table-shrink"></th>
-                            <th className="uk-table-shrink"></th>
+                            <th className="uk-table-shrink">Id Cliente</th>
                             <th className="uk-table-shrink">Cod FDZ</th>
                             <th className="uk-table-shrink">Cod. FCM</th>
                             <th className="uk-table-shrink">Nombre</th>
@@ -158,15 +164,6 @@ export default function ListadoCliente() {
                                 clientes.map( cliente => (
                                     <tr key={ cliente.id }>
                                         <td><input className="uk-checkbox" type="checkbox" /></td>
-                                        <td>
-                                            <button className="uk-button uk-button-danger uk-button-small"
-                                                    value={ cliente.id }                                                    
-                                                    onClick={ handleDelete }
-                                            >Eliminar
-                                            </button>
-
-                                            
-                                        </td>
                                         <td>                                            
                                             <button className="uk-button uk-button-primary uk-button-small"
                                                     value={ cliente.id }                                                    
@@ -177,6 +174,7 @@ export default function ListadoCliente() {
                                                 <Redirect to="/newcliente"></Redirect>
                                             }
                                         </td>
+                                        <td>{ cliente.idCliente }</td>
                                         <td>{ cliente.codFDZ }</td>
                                         <td>{ cliente.codFCM }</td>
                                         <td>{ cliente.nombreCompleto }</td>

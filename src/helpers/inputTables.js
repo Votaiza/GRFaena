@@ -57,7 +57,6 @@ export function SelectFieldCliente(props) {
   const { id, value, api, field } = props;
   const { clientes } = useSelector(state => state.clientes)
 
-  console.log(value)
   const classes = useStyles();
 
   // const handleRef = (element) => {
@@ -69,8 +68,6 @@ export function SelectFieldCliente(props) {
   const handleChange = (event) => {
     console.log(event.target.value)
     api.setEditCellValue({ id, field, value: event.target.value }, event);
-    // Check if the event is not from the keyboard
-    // https://github.com/facebook/react/issues/7407
     if (event.nativeEvent.clientX !== 0 && event.nativeEvent.clientY !== 0) {
       api.commitCellChange({ id, field });
       api.setCellMode(id, field, 'view');
@@ -94,10 +91,10 @@ export function SelectFieldCliente(props) {
           {
             clientes.map( cliente => (
               <MenuItem 
-                key={cliente.id}
-                value={cliente.id}
+                key={cliente.idCliente}
+                value={cliente.idCliente}
               >
-                  {cliente.nombreCompleto}
+                  {`${cliente.idCliente} | ${cliente.nombreCompleto}`}
               </MenuItem>
             ))
           }

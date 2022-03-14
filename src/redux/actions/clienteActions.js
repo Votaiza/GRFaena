@@ -4,17 +4,23 @@ import { types } from '../types/types';
 export const newCliente = ( cliente ) => {
     return async( dispatch ) => {
 
+        // BUSCO EL NUMERADOR DE LOS CODIGOS DE CLIENTES Y LE AUTOINCREMENTO 1
+        const contadores = await db.collection(`contadores`).doc('contadores').get();
+        const idCliente = ++contadores.data().nroCliente;
+        await db.collection('contadores').doc('contadores').update({nroCliente: idCliente})
+
+        // AGREGO EL ID AL OBJETO CLIENTE
+        cliente.idCliente = idCliente;
+
         const doc = await db.collection('clientes').add(cliente);
 
-        dispatch( addNewCliente( doc.id, cliente ) )
+        dispatch( addNewCliente( cliente ) )
 
     }
 
 }
 
-export const addNewCliente = ( id, cliente ) => {
-
-    cliente.id = id;
+export const addNewCliente = ( cliente ) => {
 
     return {
         type: types.clientesAddNew,

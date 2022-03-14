@@ -9,6 +9,7 @@ export const types = {
     uiRemoveError: '[UI] Remove Error',
     uiSaveCliente: '[UI] Save Cliente',
     uiSaveFaena: '[UI] Save Faena',
+    uiSaveProveedor: '[UI] Save Proveedor',
     uiSetMenu: '[UI] Set Main',
 
     uiStartLoading: '[UI] Start loading',
@@ -24,6 +25,13 @@ export const types = {
     clienteActive: '[Clientes] Active Clientes',
     clienteCleanActive: '[Clientes] Clean Cliente',
 
+    proveedorAddNew: '[Proveedor] New Proveedor',
+    proveedorLoad: '[Proveedor] Load Proveedor',
+    proveedorDelete: '[Proveedor] Delete Proveedor',
+    proveedorUpdate: '[Proveedor] Update Proveedor',
+    proveedorActive: '[Proveedor] Active Proveedor',
+    proveedorCleanActive: '[Proveedor] Clean Proveedor',
+
     stockAddNew: '[Stock] New Stock',
     stockLoad: '[Stock] Load Stock',
     stockDelete: '[Stock] Delete Stock',
@@ -31,6 +39,10 @@ export const types = {
 
     frigorificoAddNew: '[Frigorifico] New Frigorifico',
     frigorificoLoad: '[Frigorifico] Load Frigorifico',
+
+    ctaCteAddNew: '[Cta.Cte] New Cta.Cte',
+    ctaCteLoad: '[Cta.Cte] Load Cta.Cte',
+    ctaCteUpdate: '[Cta.Cte] Update Cta.Cte',
 
     faenaAddNew: '[Faena] New Faena',
     faenaLoad: '[Faena] Load Faena',

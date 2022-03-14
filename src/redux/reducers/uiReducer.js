@@ -6,6 +6,7 @@ const initialState = {
     msgError: null,
     saveCliente: true,
     saveFaena: true,
+    saveProveedor: true,
 }
 
 
@@ -40,6 +41,12 @@ export const uiReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 saveCliente: action.payload,
+            }
+
+        case types.uiSaveProveedor:
+            return {
+                ...state,
+                saveProveedor: action.payload,
             }
 
         case types.uiSaveFaena:

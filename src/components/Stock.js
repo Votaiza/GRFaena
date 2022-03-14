@@ -3,17 +3,43 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Container, Grid } from '@material-ui/core';
+import Box from '@mui/material/Box';
+
 import { setMenu } from '../redux/actions/ui'
 import { startLoadingStock } from '../redux/actions/stockAction'
 import StockAll from './StockAll'
+import { startLoadingProveedores } from '../redux/actions/proveedoresAction';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        marginTop: theme.spacing(2),
+        flexGrow: 1,
+    },
+    grilla: {
+        marginTop: theme.spacing(2),
+    },
+    acordion: {
+        backgroundColor: '#E87961',
+    }
+}));
 
 export default function Stock() {
 
     const { frigorificos } = useSelector(state => state.frigorifico)
+    const classes = useStyles();
     const dispatch = useDispatch()    
 
     useEffect(() => {
         dispatch( startLoadingStock() )
+        dispatch( startLoadingProveedores() )
     }, [])
 
     const handleVolver = (e) => {
@@ -23,117 +49,54 @@ export default function Stock() {
     
 
     return (
-        <>
-            <div>
-                <Link to="/dashboard" 
-                    className="uk-button uk-button-primary uk-button-small"
-                    onClick={ handleVolver }
-                >VOLVER</Link>
-            </div>
+        <Container>
+            <Grid 
+                container
+                justifyContent="space-between"
+                alignItems="center"
+                className={classes.root}
+            >
+                <Grid item >
+                    <Typography variant="h4" component="h4" mb={2}>Stock</Typography>                        
+                </Grid>
 
-            <div className="uk-container">
+                <Grid item >
+                    <Link to="/dashboard" style={{textDecoration: 'none'}}>
+                        <Button 
+                            variant="outlined" 
+                            color="secondary" 
+                            startIcon={<FirstPageIcon />}
+                            onClick={ handleVolver }
+                        >
+                            VOLVER
+                        </Button>
+                    </Link>
+                </Grid>
 
-                <div>
-                    <ul uk-accordion="multiple: true">
-                        <li className="uk-open ">
-                            <a className="uk-accordion-title uk-text-bold acordion" href="#">Todos</a>
-                            <div className="uk-accordion-content">
-                                <StockAll />
-                            </div>
-                        </li>
+            </Grid>
 
-                        {
-                            frigorificos.map( frigorifico => (
-                                <li>
-                                    <a className="uk-accordion-title uk-text-bold acordion" href="#">{frigorifico.nombre}</a>
-                                    <div className="uk-accordion-content">
-                                        <table className="uk-table uk-table-small uk-table-divider">
-                                            <thead>
-                                                <tr>
-                                                    <th>Producto</th>
-                                                    <th>Correlativo</th>
-                                                    <th>Peso</th>
-                                                    <th>Tipo</th>
-                                                    <th>ID Cliente</th>
-                                                    <th>Cliente</th>
-                                                    <th>Ciudad</th>
-                                                    <th>Ruta</th>
-                                                    <th>Precio</th>
-                                                    <th>Transporte</th>
-                                                    <th>Tocino</th>
-                                                    <th>Prov</th>
-                                                    <th>Costo</th>
-                                                    <th>Margen</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </li>
-                            ))
-                        }
+            <Box>
+                {
+                    frigorificos.map( frigorifico => (
+                        <Accordion TransitionProps={{ unmountOnExit: true }} >
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                                style={{backgroundColor: '#F2F4F4',}}
+                            >
+                                <Typography>{frigorifico.nombre}</Typography>
+                            </AccordionSummary>
 
-                        {/* <li>
-                            <a className="uk-accordion-title uk-text-bold acordion" href="#">Deheza</a>
-                            <div className="uk-accordion-content">
-                                <table className="uk-table uk-table-small uk-table-divider">
-                                    <thead>
-                                        <tr>
-                                            <th>Producto</th>
-                                            <th>Correlativo</th>
-                                            <th>Peso</th>
-                                            <th>Tipo</th>
-                                            <th>ID Cliente</th>
-                                            <th>Cliente</th>
-                                            <th>Ciudad</th>
-                                            <th>Ruta</th>
-                                            <th>Precio</th>
-                                            <th>Transporte</th>
-                                            <th>Tocino</th>
-                                            <th>Prov</th>
-                                            <th>Costo</th>
-                                            <th>Margen</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </li>
-                        <li>
-                            <a className="uk-accordion-title uk-text-bold acordion" href="#">Coronel Moldes</a>
-                            <div className="uk-accordion-content">
-                                <table className="uk-table uk-table-small uk-table-divider">
-                                    <thead>
-                                        <tr>
-                                            <th>Producto</th>
-                                            <th>Correlativo</th>
-                                            <th>Peso</th>
-                                            <th>1</th>
-                                            <th>#Cliente</th>
-                                            <th>Apellido</th>
-                                            <th>Ciudad</th>
-                                            <th>Ruta</th>
-                                            <th>Precio</th>
-                                            <th>Transporte</th>
-                                            <th>Tocino</th>
-                                            <th>Prov</th>
-                                            <th>Costo</th>
-                                            <th>Margen</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </li> */}
-                    </ul>
-                </div>
-            </div>
-        </>
+                            <AccordionDetails
+                                children={<StockAll frigorifico={frigorifico}/>}
+                            >
+                                
+                            </AccordionDetails>
+                        </Accordion>
+                    ))
+                }
+            </Box>
+        </Container>
     )
 }

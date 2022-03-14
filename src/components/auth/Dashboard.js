@@ -15,6 +15,9 @@ import Stock from "../Stock";
 import Menu from "../Menu";
 import { startLoadingFrigorifico } from "../../redux/actions/frigorificoAction";
 import ListadoFrigorifico from "../ListadoFrigorifico";
+import ListadoProveedores from "../ListadoProveedores";
+import AltaProveedor from "../AltaProveedor";
+import ListadoCtaCte from "../ListadoCtaCte";
 
 
 
@@ -55,6 +58,18 @@ export const Dashboard = () => {
 
             <Route path="/newcliente">
               <Clientes />
+            </Route>
+
+            <Route path="/listadoproveedores">
+              <ListadoProveedores />
+            </Route>
+
+            <Route path="/newproveedor">
+              <AltaProveedor />
+            </Route>
+
+            <Route path="/listadocuentacorriente">
+              <ListadoCtaCte />
             </Route>
           </Switch>
 

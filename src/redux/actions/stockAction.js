@@ -7,10 +7,12 @@ export const loadStock = async () => {
     const items = [];
 
     stockSnap.forEach( snapHijo => {
-        items.push({
-            id: snapHijo.id,
-            ...snapHijo.data(),
-        })
+        if( snapHijo.data().estado != 'C' ){
+            items.push({
+                id: snapHijo.id,
+                ...snapHijo.data(),
+            })
+        }
     })
 
     return items;
@@ -22,8 +24,9 @@ export const startLoadingStock = () => {
     return async( dispatch ) => {
 
         const stock = await loadStock();
-        
+
         dispatch( setStock( stock ) );
+        
     }
 }
 
@@ -32,18 +35,24 @@ export const setStock = ( stock ) => ({
     payload: stock,
 });
 
-export const addItems = ( cant, num ) => {
+export const addItems = ( idFrigorifico, cant, nroTropa, correlativo, idProveedor, costo ) => {
 
     return async (dispatch) => {
-        let siguiente = num
+        let siguiente = correlativo
 
         for (let x = 0; x < cant; x++) {
 
             let item = {
+                idFrigorifico: idFrigorifico,
+                nroTropa: nroTropa,
                 correlativo: siguiente,
                 producto: 'Capón',
-                tipo: 'Completo'
+                tipo: 'Completo',
+                proveedor: idProveedor,
+                costo: costo,
+                estado: '',
             };
+
             await db.collection('stock').add(item);
 
             siguiente ++
@@ -69,6 +78,8 @@ export const startDeleteStock = ( values ) => {
             db.collection(`stock`).doc( snapHijo ).delete();            
         })
 
-        dispatch( startLoadingStock() )
+        setTimeout(() => {
+            dispatch( startLoadingStock() )
+        }, 2000);
     }    
 }

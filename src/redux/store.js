@@ -8,6 +8,8 @@ import { faenaReducer } from "./reducers/faenaReducer";
 import { localidadesReducer } from "./reducers/localidadReducer";
 import { stockReducer } from "./reducers/stockReducer";
 import { frigorificoReducer } from "./reducers/frigorificoReducer";
+import { proveedorReducer } from "./reducers/proveedorReducer";
+import { ctaCteReducer } from "./reducers/ctaCteReducer";
 
 const composeEnhancers =
   (typeof window !== "undefined" &&
@@ -22,6 +24,8 @@ const reducers = combineReducers({
   localidades: localidadesReducer,
   stock: stockReducer,
   frigorifico: frigorificoReducer,
+  proveedores: proveedorReducer,
+  ctaCte: ctaCteReducer,
 });
 
 export const store = createStore(

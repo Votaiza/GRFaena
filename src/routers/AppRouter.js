@@ -9,10 +9,6 @@ import { firebase } from '../firebase/config';
 import { login } from '../redux/actions/authActions'
 import { Home } from "../components/Home";
 import { Dashboard } from "../components/auth/Dashboard";
-import ListadoCliente from "../components/ListadoCliente";
-import Stock from "../components/Stock";
-import Faena from "../components/Faena";
-import Clientes from "../components/Clientes";
 
 export const AppRouter = () => {
   // const [ checking, setChecking ] = useState(true);

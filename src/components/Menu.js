@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import StoreIcon from '@material-ui/icons/Store';
 import StorageIcon from '@material-ui/icons/Storage';
+import StorefrontIcon from '@material-ui/icons/Storefront';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 import { setMenu } from '../redux/actions/ui';
 
@@ -18,10 +20,13 @@ const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: theme.spacing(2),
         flexGrow: 1,
+    },
+    contMain:{
+        marginTop: theme.spacing(2),
     },    
     items: {
         height: 150,
-        width: 150,
+        width: 200,
         textAlign: 'center',
         background: '#3f51b5'
     },
@@ -59,33 +64,64 @@ export default function Menu() {
                 direction="row"
                 justifyContent="center"
                 className={classes.root}
-                spacing={3}
+                spacing={3}                
             >
-                
                 <Grid 
-                    item 
                     container
-                    xs={12}
                     justifyContent="center"
+                    spacing={3}
+                    className={classes.contMain}
                 >
-                    <Card className={classes.items}>
-                        <Link to="/listadocliente" style={{textDecoration: 'none'}} onClick={handleVisible} value={false}>
-                            <CardContent 
-                                className={classes.cardContend}
-                            >
-                                <EmojiPeopleIcon style={{ fontSize: 80, color: '#6fbf73' }}/>
-                                <Typography className={classes.cardTitle} variant="h4" style={{color: '#6fbf73'}} align="center">
-                                    Clientes
-                                </Typography>
-                            </CardContent>
-                        </Link>
-                    </Card>
+                    <Grid item >
+                        <Card className={classes.items}>
+                            <Link to="/listadocliente" style={{textDecoration: 'none'}} onClick={handleVisible} value={false}>
+                                <CardContent 
+                                    className={classes.cardContend}
+                                >
+                                    <EmojiPeopleIcon style={{ fontSize: 80, color: '#6fbf73' }}/>
+                                    <Typography className={classes.cardTitle} variant="h4" style={{color: '#6fbf73'}} align="center">
+                                        Clientes
+                                    </Typography>
+                                </CardContent>
+                            </Link>
+                        </Card>
+                    </Grid>
+
+                    <Grid item >
+                        <Card className={classes.items}>
+                            <Link to="/listadoproveedores" style={{textDecoration: 'none'}} onClick={handleVisible} value={false}>
+                                <CardContent 
+                                    className={classes.cardContend}
+                                >
+                                    <StorefrontIcon style={{ fontSize: 80, color: '#6fbf73' }}/>
+                                    <Typography className={classes.cardTitle} variant="h4" style={{color: '#6fbf73'}} align="center">
+                                        Proveedores
+                                    </Typography>
+                                </CardContent>
+                            </Link>
+                        </Card>
+                    </Grid>
+                    <Grid item >
+                        <Card className={classes.items}>
+                            <Link to="/listadocuentacorriente" style={{textDecoration: 'none'}} onClick={handleVisible} value={false}>
+                                <CardContent 
+                                    className={classes.cardContend}
+                                >
+                                    <LibraryBooksIcon style={{ fontSize: 80, color: '#6fbf73' }}/>
+                                    <Typography className={classes.cardTitle} variant="h4" style={{color: '#6fbf73'}} align="center">
+                                        Cta. Cte.
+                                    </Typography>
+                                </CardContent>
+                            </Link>
+                        </Card>
+                    </Grid>
                 </Grid>
 
                 <Grid 
                     container
                     justifyContent="center"
                     spacing={3}
+                    className={classes.contMain}
                 >
                     <Grid item >
                         <Card className={classes.items}>
